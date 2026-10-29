@@ -1,0 +1,22 @@
+{
+ "exe": "<MAYA_DIR>/build/maya",
+ "args": [
+  "--glm-pack", "/dev/shm/maya-models/Maya-S24/pack",
+  "--max-context", "262144",
+  "--expert-cache", "auto",
+  "--prefill", "auto",
+  "--kv-streaming", "on",
+  "--expert-profile", "<MAYA_DIR>/data/expert-profile-glm.bin",
+  "--parallel", "4",
+  "--kv", "int8"
+ ],
+ "cwd": "<MAYA_DIR>",
+ "tokenizer": "/dev/shm/maya-models/Maya-S24/pack/tokenizer",
+ "model_name": "glm-5.3-flash",
+ "gpu": [0, 1],
+ "sampling": { "temperature": 1.0, "top_p": 0.95 },
+ "reasoning_effort": "max",
+ "lib_dirs": ["<CUDA_13_3>/lib64"],
+ "port": 8080,
+ "log": "<MAYA_DIR>/maya-s24.log"
+}

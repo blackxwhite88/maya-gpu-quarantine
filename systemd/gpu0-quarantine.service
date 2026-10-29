@@ -1,0 +1,14 @@
+# ~/.config/systemd/user/gpu0-quarantine.service
+# Holds the bad physical VRAM of GPU 0 so no other process (Maya) is handed it.
+[Unit]
+Description=Quarantine faulty VRAM band on GPU 0
+
+[Service]
+Type=simple
+ExecStart=%h/tools/bandmap 0 256 10 300 span 16
+# ready once the hold line appears
+ExecStartPost=/bin/sh -c 'for i in $(seq 1 120); do journalctl --user -u gpu0-quarantine -n 50 --no-pager | grep -q "^.*HOLD:" && exit 0; sleep 2; done; exit 1'
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
